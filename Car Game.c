@@ -36,7 +36,8 @@ void draw(int point){
     draw_wall(SCREEN_WIDTH,SCREEN_HEIGHT,&wall_y_pos,&left_wall_spike,&right_wall_spike,left_wall,right_wall,_output_handle);
 	draw_avatar(&point,&avatar_x,&avatar_y,SCREEN_HEIGHT,avatar,_output_handle);
     display_score(score,lives);
-    display_count_down(immunity_count_down, _output_handle, SCREEN_WIDTH, SCREEN_HEIGHT);    
+    if(game_state == GAME_STATE_PLAYING)
+	{display_count_down(immunity_count_down, _output_handle, SCREEN_WIDTH, SCREEN_HEIGHT);};    
 }
 void clean_up()
 	{printf("Thanks for playing.");}
@@ -190,9 +191,9 @@ int main(){
         
         if(zero_lives()){
             set_game_state_over();
-            play_sound();
             display_message(game_over_string, -2, SCREEN_WIDTH, SCREEN_HEIGHT, _output_handle);
             display_message("'q' to quit...", 0,SCREEN_WIDTH, SCREEN_HEIGHT,_output_handle);
+	     play_sound();
         }
         Sleep(100);
     }
